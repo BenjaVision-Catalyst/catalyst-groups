@@ -1,0 +1,86 @@
+{
+  "formatVersion": 1,
+  "date": "2026-10-25",
+  "platform": "live GT/Pharo image",
+  "status": "P1 core domain slice; integration gates remain open",
+  "profileLock": {
+    "formatVersion": 1,
+    "profileId": "groups-core-dev-1",
+    "manifestSha256": "00d5297be9506f825618b906f55b77a0d4ef76f11f6d77488a959ed74fd78d06",
+    "resolution": "Pin this exact manifest; do not resolve a mutable branch or silently rewrite an existing consumer lock."
+  },
+  "sourceAuthority": "Created, compiled and exported through GT MCP; every exported class and method compared to live image. No disk-source reload.",
+  "sunit": {
+    "class": "CGCoreTests",
+    "run": 60,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0,
+    "observedDurationMillis": 18974
+  },
+  "gtExamples": {
+    "class": "CGCoreExamples",
+    "run": 9,
+    "successes": 9,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0
+  },
+  "frozenInputs": {
+    "validValuesAndCanonicalEncodings": 75,
+    "requestDigests": 34,
+    "invalidValuesRefused": 14,
+    "stateAndGuardScenarios": 198,
+    "compiledSchemaProfileMachinesFixturesValueParity": true,
+    "untrustedWireDecoderImplemented": false
+  },
+  "exportVerification": {
+    "classes": 23,
+    "methods": 252,
+    "packages": 6,
+    "comparison": "all class/slot metadata and comments; all parsed method source and protocols; exact definition counts"
+  },
+  "runtimeEvidence": "Actual CRWorkerQueueTestWorker named Groups service and capability resolution with explicit synthetic identities; existing live Runtime, not a clean-image revision qualification.",
+  "limits": [
+    "No real authentication or MFA proof",
+    "No asynchronous Users invocation/delegation/callback qualification",
+    "No Connect handlers, result decoder, UE or Swift execution",
+    "No full leased-query or subscription implementation",
+    "No persistence, GemStone, deployment latency or allocation-budget qualification",
+    "No relationship evidence or team-building implementation",
+    "GT views compiled; offscreen visual rendering is not certified"
+  ],
+  "sourcesSha256": {
+    "src/BaselineOfCatalystGroups/BaselineOfCatalystGroups.class.st": "3722a2149e5ec08c38831f7b8f8c61d27a67b6d73c4de23a562bfb269977e419",
+    "src/BaselineOfCatalystGroups/package.st": "9c448d936acd25ea21c071ba8e3d83ef8192b4a25687c00a4154942e3332d6ad",
+    "src/Catalyst-Groups-Core/CGAdmissionRestriction.class.st": "0171df0998832ad40c16ac9e4098c81aadc41a65db6bdcdce1fe1b6bc798141d",
+    "src/Catalyst-Groups-Core/CGApplication.class.st": "34ecb0daa528acc92a8efcda1dd71cc5f439ba62f43eb53b13e20eb5775c4259",
+    "src/Catalyst-Groups-Core/CGCoreContract.class.st": "c60746a4fb58ebd8f98324a8971ed90dff7b853c99ceca2d300b285f76b4bff9",
+    "src/Catalyst-Groups-Core/CGCoreDraft.class.st": "cd4175dcec46a49a8cc64ef15833c17ceca81828ed851951d97dcff7d147b3ce",
+    "src/Catalyst-Groups-Core/CGCoreOwner.class.st": "8b7af49448914d3643032a1ea851290d475ac787882a3f34b09fdd554dcaf583",
+    "src/Catalyst-Groups-Core/CGCoreRecord.class.st": "124c843f147f89783a3b60e136e22577d0edfe526ef978f73933ac08786429f8",
+    "src/Catalyst-Groups-Core/CGCoreRefusal.class.st": "b3a6bfedc46bcf3d929b80b568190982f407831e98cc58ef8591da4fd37ed6f2",
+    "src/Catalyst-Groups-Core/CGCoreRequest.class.st": "f3bc2dbfd8a22d825d7848c71768c368bfe67621af7fa1e3cc32eb95c8a086ca",
+    "src/Catalyst-Groups-Core/CGCoreState.class.st": "9df40e6f658217b065214c415d0e80ed12d91ed4d66d8ab5612a74346fe637af",
+    "src/Catalyst-Groups-Core/CGGroup.class.st": "8dc4d96664b0d86dce380fcbf19f76aaa3b8c62db1356142214dca0a59e54878",
+    "src/Catalyst-Groups-Core/CGInvitation.class.st": "f687419742553351f43ce81f63cecbab167d97c953797469f3b76435f271b48b",
+    "src/Catalyst-Groups-Core/CGMembership.class.st": "1cc437bc8b44b405b5d2dd85f08ea0e6c056a38e8740fb8dee2c2605c7d4b737",
+    "src/Catalyst-Groups-Core/CGOperationOutcome.class.st": "88b107539d47a007e48f5bc2f01b6e581a97f1aa46818630538b93dda724e408",
+    "src/Catalyst-Groups-Core/CGStewardshipOffer.class.st": "9da601d469823aeb9481cce846629d3ed42879a9402f7cc12e05bb08d5289cca",
+    "src/Catalyst-Groups-Core/CGUserRef.class.st": "a01a26026c0c52f05056519d380546e90eccb53d317799ef626b24e6f9b8524a",
+    "src/Catalyst-Groups-Core/package.st": "afca3050a6196bce803784911748401092265b22bbb4ac42086b019c7718c52a",
+    "src/Catalyst-Groups-Development/CGCoreDevelopmentTools.class.st": "5db08328097e8490f2ec6933dd0565bd627890fc7819bab2b32ca5691af77eed",
+    "src/Catalyst-Groups-Development/CGDevelopmentIdentities.class.st": "51f762d6f05863b404baf5c3de37d1285adaf06caf45e7085818e51e4ba22dad",
+    "src/Catalyst-Groups-Development/package.st": "4b4dc139610b52a1bc70db4569de0c134bee3f9e80c7a1b2a27303abe2da1f44",
+    "src/Catalyst-Groups-GT/CGCoreRecord.extension.st": "fb5b1f9e1ae1e8bedc3649ae9433df923bbf8936f81db277ec08d7c261782d33",
+    "src/Catalyst-Groups-GT/CGCoreState.extension.st": "12feae3f21b7cc296f493edfe6d8601d87a18b9bedf43176398c5d4ee2b9dd5d",
+    "src/Catalyst-Groups-GT/package.st": "d0d049e61af61b2f25d16418a3a930a4b54bfe8f9fc4be1e757b5ea2621084bb",
+    "src/Catalyst-Groups-Runtime/CGCoreCapability.class.st": "ece28efee15ebc7b2e562a844d9202527d13e02d9c6383c9357c5d57c52a13d0",
+    "src/Catalyst-Groups-Runtime/CGCoreCommandWorkUnit.class.st": "ced18a93aeec720466e93f5c55122bebbaec0cee2c7926f4d1cd2279f30ff9ad",
+    "src/Catalyst-Groups-Runtime/CGCoreService.class.st": "f185994cf6d87821ef448111e2ceb5a5c2d9d2c9ee1568af83b93c30a1f8d57b",
+    "src/Catalyst-Groups-Runtime/package.st": "af0f294681086d9f9b586f0b16e4a7e9636b555b9ec7f3fa0069f087929313dc",
+    "src/Catalyst-Groups-Tests/CGCoreExamples.class.st": "5655f658c1e81993b59a9d2cb687dc64b48f4b843432ec88620dda4dbf9a06ab",
+    "src/Catalyst-Groups-Tests/CGCoreTests.class.st": "cf41b1074cf41c4b22c4860f3328e4137b979b285207f783faf8f6333f41576b",
+    "src/Catalyst-Groups-Tests/package.st": "2e38f15773edaf65d6746230e65fb8205b183a0f859db1009bf5b452d42aa756"
+  }
+}
