@@ -1,12 +1,11 @@
 # Catalyst Groups
 
-GT/Pharo implementation of the `groups-core-dev-1` core domain, membership and
-fixed governance. This is an in-memory development foundation over Catalyst
-Runtime. It has no production identity adapter, network handler or durability claim.
-
-The authoritative source is the live GT image. All Smalltalk in `src/` was
-compiled and exported through GT MCP and compared back to the image. Follow the
-workspace's source-recovery workflow before synchronising any registered checkout.
+Catalyst Groups is for developers building applications with group invitations,
+membership, and governance rules that need consistent outcomes. Its current
+GT/Pharo core lets you explore those workflows over Catalyst Runtime, with
+guarded state changes and recoverable operation results. It is an in-memory
+development implementation; production identity, network handlers, and durable
+storage are not integrated yet.
 
 ## Implemented core
 
@@ -26,6 +25,21 @@ workspace's source-recovery workflow before synchronising any registered checkou
 Relationship evidence, team building, units/custom roles, shared resources and
 native clients remain separate work. There is no standalone Groups C++ library.
 
+## Installation
+
+Install Catalyst through [BVC](https://github.com/BenjaVisionPro/bvc#install).
+With BVC installed, create and launch a local development project:
+
+```sh
+bvc init MyCatalystProject
+cd MyCatalystProject
+bvc run
+```
+
+BVC builds and launches the GT/Pharo DevKit without starting a GemStone deployment.
+Your project's BVC configuration selects the components and startup packages.
+Package-loading details below describe development inside that environment.
+
 ## Packages
 
 | Package | Responsibility |
@@ -38,17 +52,12 @@ native clients remain separate work. There is no standalone Groups C++ library.
 | BaselineOfCatalystGroups | Local package loading into an already prepared GT/Runtime image. |
 
 The baseline expects Catalyst Runtime, NeoJSON, UUID, SHA256, SUnit and GT tooling
-already loaded. It does not fetch or qualify those dependencies. For this workspace:
+already loaded. It does not fetch or qualify those dependencies. BVC project
+configuration must supply them and select the Groups baseline. The Metacello
+`Development` group is the default package group for this development core.
 
-```smalltalk
-Metacello new
-    baseline: 'CatalystGroups';
-    repository: 'tonel:///opt/git/BenjaVisionPro/catalyst-workspace/Groups/CatalystGroups/src';
-    load.
-```
-
-Do not use this to reload over pending live-image changes. A fresh-image load is
-a separate qualification gate; the recorded execution used the existing GT image.
+A fresh-image load is a separate qualification gate; the recorded execution
+used the existing GT image.
 
 ## Tests and examples
 
@@ -105,7 +114,7 @@ Source round-trip verification can be repeated without loading disk source:
 
 ```smalltalk
 CGCoreDevelopmentTools verifyExportAt:
-    '/opt/git/BenjaVisionPro/catalyst-workspace/Groups/CatalystGroups'.
+    '/path/to/CatalystGroups'.
 ```
 
 The exporter requires a clean, unregistered destination and refuses to overwrite
