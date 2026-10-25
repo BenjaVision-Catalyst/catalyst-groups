@@ -71,9 +71,10 @@ CGCoreDraft >> admit: user [
  ^ member
 ]
 
-{ #category : 'domain' }
+{ #category : 'operations' }
 CGCoreDraft >> applyToJoin [
  self require: (group at: #joinPolicy) = 'application' code: #GovernanceBlocked.
+ identities requireContactFrom: actor to: actor.
  ^ self newAdmission: #applications class: CGApplication user: actor ttl: 604800000
 ]
 
@@ -235,9 +236,10 @@ CGCoreDraft >> isSteward [
  ^ member notNil and: [ member state = #active and: [ member id = (group at: #holder) ] ]
 ]
 
-{ #category : 'domain' }
+{ #category : 'operations' }
 CGCoreDraft >> joinOpenGroup [
  self require: (group at: #joinPolicy) = 'open' code: #GovernanceBlocked.
+ identities requireContactFrom: actor to: actor.
  ^ self admit: actor
 ]
 

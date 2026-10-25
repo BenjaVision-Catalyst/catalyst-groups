@@ -1,0 +1,124 @@
+{
+  "formatVersion": 1,
+  "date": "2026-10-25",
+  "status": "P1 implementation verified in live GT; expanded-revision clean rebuild pending user action",
+  "platform": "Pharo13.1.0SNAPSHOT",
+  "image": "/opt/TestNewBVC/SuperGame/devkit/SuperGame.image",
+  "profileLock": {
+    "formatVersion": 1,
+    "profileId": "groups-core-dev-1",
+    "manifestSha256": "00d5297be9506f825618b906f55b77a0d4ef76f11f6d77488a959ed74fd78d06",
+    "resolution": "Pin this exact manifest; do not resolve a mutable branch or silently rewrite an existing consumer lock."
+  },
+  "sourceAuthority": "Created, compiled, inspected and exported through GT MCP into an independent clean checkout. Every class/method verified against live image. No registered checkout externally synchronised.",
+  "sunit": {
+    "classes": [
+      "CGCoreTests",
+      "CGCoreRuntimeTests"
+    ],
+    "run": 88,
+    "passed": 88,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0
+  },
+  "gtExamples": {
+    "classes": [
+      "CGCoreExamples",
+      "CGCoreRuntimeExamples"
+    ],
+    "distinctRun": 12,
+    "successes": 12,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0,
+    "evaluator": "Actual method gtExample run, non-nil object results; inherited methods counted once"
+  },
+  "exportVerification": {
+    "classes": 33,
+    "methods": 358,
+    "packages": 6,
+    "comparison": "Exact definition counts, all class/slot metadata and comments, all parsed method source and protocols"
+  },
+  "runtimeEvidence": {
+    "workers": "Three distinct CRRoutingTestWorker instances using real ephemeral queues and Runtime observed routing",
+    "source": "Explicit CGDevelopmentIngressService, synthetic actor selected by trusted test composition",
+    "users": "CGDevelopmentUsersService U1/U2/U3 fixture projections, asynchronous work and callback",
+    "bindings": [
+      "Exact WorkUnit and verified submission identity",
+      "Service class, name and activation",
+      "Invocation ID, actor, operation ID and digest",
+      "Allow-listed purpose and source clock generation"
+    ],
+    "ownership": [
+      "64 inputs including duplicate waiters",
+      "Single pending decision per mutation key/digest",
+      "Positive retirement fences late callbacks and replacement attempts",
+      "Five-second deadline checked at publication",
+      "Stop waits for routed ownership before a new epoch"
+    ],
+    "query": "Actor-scoped GetOperationResult through the verified asynchronous path; does not write mutation outcomes"
+  },
+  "bootCheckoutRevisions": {
+    "CatalystGroupsBeforeReview": "4714f798894f6d7fdece92e1b1f2573a1a1e5679",
+    "CatalystRuntime": "b34f83b7ffa8d64b693181bc2949d0ea71cc9cda",
+    "CatalystFoundation": "cd8303387203181b6c74880688af562c6b5b5211",
+    "note": "Observed rebuilt-image checkout revisions, not a claim of expanded Groups clean loading. Runtime workingCopyDiff was empty at review; unrelated Connect/Sparta/Grease image changes require their own checkpoint before rebuild."
+  },
+  "rebuild": {
+    "previousCore": "Loaded in user-rebuilt SuperGame image; 60 tests and 9 examples passed before this review",
+    "expandedRevision": "Not run; user owns rebuilds. No second GT image was launched.",
+    "remaining": "Recover other pending image work, user rebuild, repeat conformance/run-p1-checks.st through GT and verify source/dependency revisions"
+  },
+  "limits": [
+    "Development Users decisions are not real authentication, MFA or session delegation",
+    "No Connect wire handlers, bounded decoder, UE or Swift client implementation",
+    "No full leased queries/subscriptions, delivery fences or scheduled cleanup qualification",
+    "No deployment performance, measured allocation budget, durability or GemStone claim",
+    "No relationship evidence, psychological inference or team-building implementation"
+  ],
+  "sourcesSha256": {
+    "src/BaselineOfCatalystGroups/BaselineOfCatalystGroups.class.st": "97f1dae0d4655cae5ae3ec9bf006b5dddb596f02ad288028216813258fe9ba0e",
+    "src/BaselineOfCatalystGroups/package.st": "9c448d936acd25ea21c071ba8e3d83ef8192b4a25687c00a4154942e3332d6ad",
+    "src/Catalyst-Groups-Core/CGAdmissionRestriction.class.st": "0171df0998832ad40c16ac9e4098c81aadc41a65db6bdcdce1fe1b6bc798141d",
+    "src/Catalyst-Groups-Core/CGApplication.class.st": "34ecb0daa528acc92a8efcda1dd71cc5f439ba62f43eb53b13e20eb5775c4259",
+    "src/Catalyst-Groups-Core/CGCoreContract.class.st": "c60746a4fb58ebd8f98324a8971ed90dff7b853c99ceca2d300b285f76b4bff9",
+    "src/Catalyst-Groups-Core/CGCoreDraft.class.st": "14657dd2f55d1d00145e01bcef3f745790437c940c4612f241de63347414775e",
+    "src/Catalyst-Groups-Core/CGCoreOwner.class.st": "f43154858c4efa8758b0113fc17dfd519b22a08abc332e8a818687860321267f",
+    "src/Catalyst-Groups-Core/CGCoreRecord.class.st": "124c843f147f89783a3b60e136e22577d0edfe526ef978f73933ac08786429f8",
+    "src/Catalyst-Groups-Core/CGCoreRefusal.class.st": "b3a6bfedc46bcf3d929b80b568190982f407831e98cc58ef8591da4fd37ed6f2",
+    "src/Catalyst-Groups-Core/CGCoreRequest.class.st": "f3bc2dbfd8a22d825d7848c71768c368bfe67621af7fa1e3cc32eb95c8a086ca",
+    "src/Catalyst-Groups-Core/CGCoreState.class.st": "9df40e6f658217b065214c415d0e80ed12d91ed4d66d8ab5612a74346fe637af",
+    "src/Catalyst-Groups-Core/CGGroup.class.st": "8dc4d96664b0d86dce380fcbf19f76aaa3b8c62db1356142214dca0a59e54878",
+    "src/Catalyst-Groups-Core/CGInvitation.class.st": "f687419742553351f43ce81f63cecbab167d97c953797469f3b76435f271b48b",
+    "src/Catalyst-Groups-Core/CGMembership.class.st": "1cc437bc8b44b405b5d2dd85f08ea0e6c056a38e8740fb8dee2c2605c7d4b737",
+    "src/Catalyst-Groups-Core/CGOperationOutcome.class.st": "88b107539d47a007e48f5bc2f01b6e581a97f1aa46818630538b93dda724e408",
+    "src/Catalyst-Groups-Core/CGStewardshipOffer.class.st": "9da601d469823aeb9481cce846629d3ed42879a9402f7cc12e05bb08d5289cca",
+    "src/Catalyst-Groups-Core/CGUserRef.class.st": "a01a26026c0c52f05056519d380546e90eccb53d317799ef626b24e6f9b8524a",
+    "src/Catalyst-Groups-Core/package.st": "afca3050a6196bce803784911748401092265b22bbb4ac42086b019c7718c52a",
+    "src/Catalyst-Groups-Development/CGCoreDevelopmentTools.class.st": "5db08328097e8490f2ec6933dd0565bd627890fc7819bab2b32ca5691af77eed",
+    "src/Catalyst-Groups-Development/CGDevelopmentCheckWorkUnit.class.st": "f390e4c5b41ba9b6bcf519e699c82aaefd638b372fe28631d093a3ae17ddf14e",
+    "src/Catalyst-Groups-Development/CGDevelopmentIdentities.class.st": "10d7d7e5c48995bf57f9584bd1d9740485ae6cc3ab098724ae7924b4c44190bd",
+    "src/Catalyst-Groups-Development/CGDevelopmentIngressService.class.st": "721d99c8321f39d180a616541191798e9a19ae52ba11ca08d10211ad06f1044c",
+    "src/Catalyst-Groups-Development/CGDevelopmentRuntimeBridge.class.st": "7aab83ba9c0e6cd9b33efd5c6f1468367284f26021840d0a846f5d5f0c6ba34e",
+    "src/Catalyst-Groups-Development/CGDevelopmentUsersCapability.class.st": "861f53e30c11e89ffa1df22913b53ab19b41da46c04fd42c8d56d05508d84077",
+    "src/Catalyst-Groups-Development/CGDevelopmentUsersService.class.st": "42eb2e7ee7936faab464d3f2e15aac2a0010771a0ca389d4cd8c0d3bb381e1df",
+    "src/Catalyst-Groups-Development/package.st": "4b4dc139610b52a1bc70db4569de0c134bee3f9e80c7a1b2a27303abe2da1f44",
+    "src/Catalyst-Groups-GT/CGCoreRecord.extension.st": "fb5b1f9e1ae1e8bedc3649ae9433df923bbf8936f81db277ec08d7c261782d33",
+    "src/Catalyst-Groups-GT/CGCoreState.extension.st": "12feae3f21b7cc296f493edfe6d8601d87a18b9bedf43176398c5d4ee2b9dd5d",
+    "src/Catalyst-Groups-GT/package.st": "d0d049e61af61b2f25d16418a3a930a4b54bfe8f9fc4be1e757b5ea2621084bb",
+    "src/Catalyst-Groups-Runtime/CGCoreCapability.class.st": "3d96e23bf4273562d3eaf064baabdd78f79614db09e3c1fef90d08da33ea3b18",
+    "src/Catalyst-Groups-Runtime/CGCoreCommandWorkUnit.class.st": "ced18a93aeec720466e93f5c55122bebbaec0cee2c7926f4d1cd2279f30ff9ad",
+    "src/Catalyst-Groups-Runtime/CGCoreDecisionWorkUnit.class.st": "d4c9697dfc9031915ee6dbaade6a1e4c2faaebeca5324703b3516c8b187bce4a",
+    "src/Catalyst-Groups-Runtime/CGCoreInvocationWorkUnit.class.st": "e2b5063b992694ee955d85b6033a8569c92bd0f80ba3585fee41a6218e3817fc",
+    "src/Catalyst-Groups-Runtime/CGCoreService.class.st": "0910da1efe3893c91f0cf1345870d1cf274d778b92847768432ef1059f66c629",
+    "src/Catalyst-Groups-Runtime/package.st": "af0f294681086d9f9b586f0b16e4a7e9636b555b9ec7f3fa0069f087929313dc",
+    "src/Catalyst-Groups-Tests/CGCoreDeadlineProbeOwner.class.st": "5eea20a446d824d071cf6dafdc3270d2fd212834da8c420d99f2a17b2fc5b872",
+    "src/Catalyst-Groups-Tests/CGCoreExamples.class.st": "5655f658c1e81993b59a9d2cb687dc64b48f4b843432ec88620dda4dbf9a06ab",
+    "src/Catalyst-Groups-Tests/CGCoreRuntimeExamples.class.st": "a1074b944e244c0fe84de3715e1edf71a63fab6510cc7e5fb9e7d2fe6647bdb7",
+    "src/Catalyst-Groups-Tests/CGCoreRuntimeTests.class.st": "052310ca64c039a2c97b69ccf1f9672c71fb2ea19bbd08831212f661f86f17fd",
+    "src/Catalyst-Groups-Tests/CGCoreTests.class.st": "cf41b1074cf41c4b22c4860f3328e4137b979b285207f783faf8f6333f41576b",
+    "src/Catalyst-Groups-Tests/package.st": "2e38f15773edaf65d6746230e65fb8205b183a0f859db1009bf5b452d42aa756"
+  },
+  "runnerSha256": "63b6845dfa3a890458c1407cfeec76755a31b97b5ccda2a8cbe2228658d11f83"
+}

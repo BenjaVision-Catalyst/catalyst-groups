@@ -1,5 +1,5 @@
 "
-Narrow Runtime export restricted to the exact local Groups command WorkUnit and Groups service class. The development command path is synthetic and must not be exposed as authenticated network ingress.
+Narrow Groups service export for the exact local fixture, invocation and decision WorkUnit classes. A configured development bridge enforces registered observed origin and callback identities. It conveys no serialisable principal or network ingress authority.
 "
 Class {
 	#name : 'CGCoreCapability',
@@ -13,9 +13,19 @@ CGCoreCapability class >> canBeGrantedToServiceClass: serviceClass [
  ^ serviceClass = CGCoreService
 ]
 
-{ #category : 'authority' }
+{ #category : 'development' }
 CGCoreCapability class >> canBeGrantedToWorkUnitClass: unitClass [
- ^ unitClass = CGCoreCommandWorkUnit
+ ^ { CGCoreCommandWorkUnit. CGCoreInvocationWorkUnit. CGCoreDecisionWorkUnit } includes: unitClass
+]
+
+{ #category : 'development' }
+CGCoreCapability >> beginDevelopmentInvocation: unit context: context [
+ ^ service beginDevelopmentInvocation: unit context: context
+]
+
+{ #category : 'development' }
+CGCoreCapability >> completeDevelopmentInvocation: unit context: context [
+ ^ service completeDevelopmentInvocation: unit context: context
 ]
 
 { #category : 'development' }

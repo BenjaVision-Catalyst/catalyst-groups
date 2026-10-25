@@ -1,5 +1,5 @@
 "
-Single serial execution owner for the groups-core-dev-1 in-memory domain. Prepares detached domain state, append-only outcomes, audit and journal before one reference publication. Semaphore critical sections are local development ownership, not database transactions. Synchronous development identities, inspection and failure probes are explicitly not a production Users or Connect boundary. Reset creates a new data generation; no durability claim.
+Single serial owner of the groups-core-dev-1 in-memory domain. Prepares detached domain state, result/digest, audit and journal before one reference publication. Asynchronous execution consumes a scoped decision projection, rechecks domain/security revisions and invocation expiry at publication, and restores the local fixture adapter under the mutex. No asynchronous work or external callback runs under that mutex. Reset changes data generation; no persistence, real Users or Connect claim.
 "
 Class {
 	#name : 'CGCoreOwner',
@@ -15,7 +15,8 @@ Class {
 		'sourceContinuous',
 		'clockFault',
 		'requestBuckets',
-		'inviteBuckets'
+		'inviteBuckets',
+		'invocationDeadline'
 	],
 	#category : 'Catalyst-Groups-Core',
 	#package : 'Catalyst-Groups-Core'
@@ -147,6 +148,26 @@ CGCoreOwner >> consumeRateFor: actor buckets: buckets burst: burst interval: int
 ]
 
 { #category : 'development' }
+CGCoreOwner >> developmentDecisionSubjectsFor: request actor: actor [
+ ^ mutex critical: [
+  | subjects group body record |
+  subjects := Set with: actor. body := request body.
+  request operation = 'InviteMember' ifTrue: [ subjects add: (CGUserRef fromMap: (body at: 1)) ].
+  group := state groups at: (body at: 0 ifAbsent: [ nil ]) ifAbsent: [ nil ].
+  group ifNotNil: [
+   (#('AcceptInvitation' 'AcceptStewardship') includes: request operation) ifTrue: [
+    record := (group at: #memberships) at: (group at: #holder) ifAbsent: [ nil ].
+    record ifNotNil: [ subjects add: (record at: #subject) ] ].
+   (#('ResumeMember' 'TransferStewardship') includes: request operation) ifTrue: [
+    record := (group at: #memberships) at: (body at: 1) ifAbsent: [ nil ].
+    record ifNotNil: [ subjects add: (record at: #subject) ] ].
+   request operation = 'DecideApplication' ifTrue: [
+    record := (group at: #applications) at: (body at: 1) ifAbsent: [ nil ].
+    record ifNotNil: [ subjects add: (record at: #subject) ] ] ].
+  subjects asArray veryDeepCopy ]
+]
+
+{ #category : 'development' }
 CGCoreOwner >> developmentGroup: identifier [
  "Detached development inspection; not a permissioned client query."
  ^ mutex critical: [ (state groups at: identifier) veryDeepCopy ]
@@ -191,12 +212,24 @@ CGCoreOwner >> execute: aRequest actor: user [
    on: CGCoreRefusal do: [ :error | self outcomeCode: error code recorded: error recorded retryable: error retryable ] ]
 ]
 
+{ #category : 'development' }
+CGCoreOwner >> execute: request actor: actor usingDecisions: decisions deadline: deadline [
+ ^ mutex critical: [
+  | original previousDeadline |
+  original := identities. previousDeadline := invocationDeadline.
+  identities := decisions. invocationDeadline := deadline.
+  [ [ self verifyInvocationDeadline. self executeLocked: request veryDeepCopy actor: actor veryDeepCopy ]
+    on: CGCoreRefusal do: [ :error | self outcomeCode: error code recorded: error recorded retryable: error retryable ] ]
+   ensure: [ identities := original. invocationDeadline := previousDeadline ] ]
+]
+
 { #category : 'execution' }
 CGCoreOwner >> executeLocked: request actor: actor [
  | now key previous next draft result revision |
  running ifFalse: [ CGCoreRefusal code: #DependencyUnavailable recorded: false retryable: true ].
  sourceContinuous ifFalse: [ CGCoreRefusal code: #DependencyUnavailable recorded: false retryable: true ].
  CGCoreContract require: actor class = CGUserRef.
+ request operation = 'GetOperationResult' ifTrue: [ ^ self operationLocked: (request body at: 0) actor: actor generation: request generation ].
  (#('CreateGroup' 'UpdateGroup' 'InviteMember' 'WithdrawInvitation' 'AcceptInvitation' 'DeclineInvitation' 'ApplyToJoin' 'WithdrawApplication' 'DecideApplication' 'JoinOpenGroup' 'LeaveGroup' 'SuspendMember' 'ResumeMember' 'RemoveMember' 'SetAdmissionRestriction' 'RemoveAdmissionRestriction' 'TransferStewardship' 'AcceptStewardship' 'WithdrawStewardshipOffer' 'BeginDissolution') includes: request operation) ifFalse: [ CGCoreRefusal code: #NotSupported recorded: false retryable: false ].
  request generation = state generation ifFalse: [ CGCoreRefusal code: #ResyncRequired recorded: false retryable: false ].
  now := self checkedMillis.
@@ -229,6 +262,7 @@ CGCoreOwner >> executeLocked: request actor: actor [
   ifTrue: [ self appendPublicationFor: draft request: request actor: actor state: next now: now ]
   ifFalse: [ draft group ifNotNil: [ self appendRefusal: result group: draft group request: request actor: actor state: next now: now ] ].
  self probe: #beforePublication.
+ self verifyInvocationDeadline.
  state := next.
  self probe: #afterPublication.
  ^ result veryDeepCopy
@@ -278,16 +312,20 @@ CGCoreOwner >> initialize [
  super initialize. state := CGCoreState new. mutex := Semaphore forMutualExclusion. running := true. sourceContinuous := true. clockFault := false. requestBuckets := Dictionary new. inviteBuckets := Dictionary new
 ]
 
-{ #category : 'recovery' }
+{ #category : 'execution' }
 CGCoreOwner >> operation: identifier actor: actor generation: generation [
- ^ mutex critical: [
-  | outcome now |
+ ^ mutex critical: [ self operationLocked: identifier actor: actor generation: generation ]
+]
+
+{ #category : 'execution' }
+CGCoreOwner >> operationLocked: identifier actor: actor generation: generation [
+ | outcome now |
   (running and: [ sourceContinuous ]) ifFalse: [ ^ self outcomeCode: #DependencyUnavailable recorded: false retryable: true ].
   generation = state generation ifFalse: [ ^ self outcomeCode: #OutcomeUnavailable recorded: false retryable: false ].
   now := self checkedMillis.
   identities requireEligible: actor minimumRevision: (state securityRevisions at: actor ifAbsent: [ 0 ]).
   outcome := state outcomes at: { generation. actor. identifier } ifAbsent: [ ^ self outcomeCode: #OutcomeUnavailable recorded: false retryable: false ].
-  self disclose: outcome actor: actor now: now ]
+  ^ self disclose: outcome actor: actor now: now
 ]
 
 { #category : 'execution' }
@@ -313,4 +351,11 @@ CGCoreOwner >> start [
 { #category : 'execution' }
 CGCoreOwner >> stop [
  mutex critical: [ running := false ]
+]
+
+{ #category : 'development' }
+CGCoreOwner >> verifyInvocationDeadline [
+ invocationDeadline ifNotNil: [
+  self checkedMillis >= invocationDeadline ifTrue: [
+   CGCoreRefusal code: #DependencyUnavailable recorded: false retryable: true ] ]
 ]

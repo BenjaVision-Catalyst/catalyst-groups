@@ -35,6 +35,15 @@ CGDevelopmentIdentities >> contact: flag for: user [
  (self decisionFor: user) at: #contact put: flag
 ]
 
+{ #category : 'development' }
+CGDevelopmentIdentities >> copyDecisionsFor: subjects [
+ | copy |
+ subjects size <= 4 ifFalse: [ self error: 'Bounded invocation projection required' ].
+ copy := self class new.
+ subjects do: [ :user | copy installDecision: (decisions at: user ifAbsent: [ nil ]) for: user ].
+ ^ copy
+]
+
 { #category : 'execution' }
 CGDevelopmentIdentities >> decisionFor: user [
  ^ decisions at: user ifAbsent: [ CGCoreRefusal code: #DependencyUnavailable recorded: false retryable: true ]
@@ -64,6 +73,11 @@ CGDevelopmentIdentities >> groupFact: kind group: identifier generation: generat
 { #category : 'execution' }
 CGDevelopmentIdentities >> initialize [
  super initialize. decisions := Dictionary new. facts := IdentityDictionary new
+]
+
+{ #category : 'development' }
+CGDevelopmentIdentities >> installDecision: value for: user [
+ value ifNotNil: [ decisions at: user veryDeepCopy put: value veryDeepCopy ]
 ]
 
 { #category : 'execution' }

@@ -13,7 +13,7 @@ BaselineOfCatalystGroups >> baseline: spec [
  <baseline>
  spec for: #common do: [
   spec package: 'Catalyst-Groups-Core'.
-  spec package: 'Catalyst-Groups-Development' with: [ spec requires: #('Catalyst-Groups-Core') ].
+  spec package: 'Catalyst-Groups-Development' with: [ spec requires: #('Catalyst-Groups-Core' 'Catalyst-Groups-Runtime') ].
   spec package: 'Catalyst-Groups-Runtime' with: [ spec requires: #('Catalyst-Groups-Core') ].
   spec package: 'Catalyst-Groups-GT' with: [ spec requires: #('Catalyst-Groups-Core') ].
   spec package: 'Catalyst-Groups-Tests' with: [ spec requires: #('Catalyst-Groups-Development' 'Catalyst-Groups-Runtime' 'Catalyst-Groups-GT') ].
